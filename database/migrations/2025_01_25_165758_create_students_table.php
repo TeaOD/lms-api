@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->string('title', length: 250);   // required, string, max 250 characters.
+            $table->string('name', length: 250);   // required, string, max 250 characters.
             $table->decimal('price', total: 8, places: 2);  // required, decimal with 8 digits in total and 2 digits after the decimal point
             $table->date('start_date'); // required, date
             $table->date('end_date');   // required, date
