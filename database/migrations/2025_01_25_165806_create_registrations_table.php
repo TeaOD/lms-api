@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('registrations', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('course_id')->constrained()->onDelete('cascade');   // required, links to courses table, on delete cascade
+            $table->foreignId('student_id')->constrained()->onDelete('cascade');   // required, links to students table, on delete cascade
             $table->timestamps(precision: 0);   // created_at and updated_at columns, precision: 0 means the timestamps will be stored with no fractional seconds 
         });
     }
