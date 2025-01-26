@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -11,7 +12,8 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        $comments = Comment::with(['course', 'student'])->get();
+        return response()->json($comments);
     }
 
     /**
@@ -19,7 +21,14 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'comment' => 'required|string',
+            'course_id' => 'required|exists:courses,id',
+            'student_id' => 'required|exists:students,id'
+        ]);
+
+        $comment = Comment::create($request->all());
+        return response()->json($comment, 201); // 201 means created
     }
 
     /**
@@ -27,7 +36,8 @@ class CommentController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $comment = Comment::with(['course', 'student'])->find($id);
+        return response()->json($comment);
     }
 
     /**
@@ -35,7 +45,16 @@ class CommentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $comment = Comment::find($id);
+        
+        $request->validate([
+            'comment' => 'required|string',
+            'course_id' => 'required|exists:courses,id',
+            'student_id' => 'required|exists:students,id'
+        ]);
+
+        $comment->update($request->all());
+        return response()->json($comment);
     }
 
     /**
@@ -43,6 +62,8 @@ class CommentController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $comment = Comment::find($id);
+        $comment->delete();
+        return response()->json(null, 204); // 204 means no content
     }
 }

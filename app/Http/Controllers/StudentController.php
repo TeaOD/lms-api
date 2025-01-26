@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -11,7 +12,8 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
+        $students = Student::all();
+        return response()->json($students);
     }
 
     /**
@@ -19,7 +21,17 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:250',
+            'price' => 'required|numeric',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
+            'details' => 'nullable|string',
+            'instructor_name' => 'required|string|max:250',
+        ]);
+
+        $student = Student::create($request->all());
+        return response()->json($student, 201); // 201 means created
     }
 
     /**
@@ -27,7 +39,8 @@ class StudentController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $student = Student::find($id);
+        return response()->json($student);
     }
 
     /**
@@ -35,7 +48,19 @@ class StudentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $student = Student::find($id);
+
+        $request->validate([
+            'name' => 'required|string|max:250',
+            'price' => 'required|numeric',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
+            'details' => 'nullable|string',
+            'instructor_name' => 'required|string|max:250',
+        ]);
+
+        $student->update($request->all());
+        return response()->json($student);
     }
 
     /**
@@ -43,6 +68,8 @@ class StudentController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $student = Student::find($id);
+        $student->delete();
+        return response()->json(null, 204); // 204 means no content
     }
 }
