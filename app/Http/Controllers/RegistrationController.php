@@ -14,7 +14,29 @@ class RegistrationController extends Controller
      */
     public function index()
     {
-        $registrations = Registration::with(['course', 'student'])->get();
+        /*$registrations = Registration::with(['course', 'student'])->get();
+        return response()->json($registrations);*/
+        $query = Registration::with(['course', 'student']);
+
+        // Filter by course_id
+        if (request()->has('course_id')) {
+            $query->where('course_id', request('course_id'));
+        }
+
+        // Filter by student_id
+        if (request()->has('student_id')) {
+            $query->where('student_id', request('student_id'));
+        }
+
+        // Filter by Instructor Name
+        if (request()->has('instructor_name')) {
+            $query->whereHas('course', function ($query) {
+                $query->where('instructor_name', 'like', '%' . request('instructor_name') . '%');
+            });
+        }
+
+        // Pagination with 10 items per page
+        $registrations = $query->paginate(10);
         return response()->json($registrations);
     }
 
