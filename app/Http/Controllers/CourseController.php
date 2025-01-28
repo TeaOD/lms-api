@@ -12,8 +12,30 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $courses = Course::all();
+        /*$courses = Course::all();
+        return response()->json($courses);*/
+
+        $query = Course::query();
+
+        //  Filter by title
+        if (request()->has('title')) {
+            $query->where('title', 'like', '%' . request('title') . '%');
+        }
+
+        //  Filter by start_date
+        if (request()->has('start_date')) {
+            $query->where('start_date', '>=', request('start_date'));
+        }
+
+        //  Filter by instructor_name
+        if (request()->has('instructor_name')) {
+            $query->where('instructor_name', 'like', '%' . request('instructor_name') . '%');
+        }
+
+        // Pagination with 10 items per page
+        $courses = $query->paginate(10);
         return response()->json($courses);
+
     }
 
     /**
