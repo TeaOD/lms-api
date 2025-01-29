@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('details')->nullable();    // nullable means the column can be null .i.e optional
             $table->string('instructor_name', length: 250);   // required, string, max 250 characters.
             $table->timestamps(precision: 0);   // created_at and updated_at columns, precision: 0 means the timestamps will be stored with no fractional seconds 
+            $table->softDeletes();  // deleted_at column for soft deletes
         });
     }
 
