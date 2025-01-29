@@ -24,7 +24,7 @@ class CourseController extends Controller
 
         //  Filter by start_date
         if (request()->has('start_date')) {
-            $query->where('start_date', '>=', request('start_date'));
+            $query->where('start_date', '==', request('start_date'));
         }
 
         //  Filter by instructor_name
