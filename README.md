@@ -1,66 +1,231 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## LMS API Project
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This is a Learning Management System (LMS) API built with PHP and Laravel. It provides endpoints to manage courses, students, comments, and registrations. The API is designed to be RESTful, with support for pagination, filtering.
 
-## About Laravel
+## Project Structure
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+The project follows the standard Laravel directory structure with some additional customizations for the LMS system. Here’s an overview of the key directories and files:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+lms-api/
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+├── app/\
+│   ├── Http/\
+│   │   ├── Controllers/\
+│   │   │   ├── CourseController.php\
+│   │   │   ├── StudentController.php\
+│   │   │   ├── CommentController.php\
+│   │   │   ├── RegistrationController.php\
+│   ├── Models/\
+│   │   ├── Course.php\
+│   │   ├── Student.php\
+│   │   ├── Comment.php\
+│   │   ├── Registration.php\
+├── config/\
+├── database/\
+│   ├── migrations/\
+│   │   ├── create_courses_table.php\
+│   │   ├── create_students_table.php\
+│   │   ├── create_comments_table.php\
+│   │   ├── create_registrations_table.php\
+├── routes/\
+│   ├── api.php\
+├── tests/\
+├── .env\
+├── composer.json\
+├── README.md
 
-## Learning Laravel
+## Features
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **Courses Management:**
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+    - Create, update, delete, and list courses.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+    - Filter courses by title, start_date, and instructor_name.
 
-## Laravel Sponsors
+    - Soft delete support for courses.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- **Students Management:**
 
-### Premium Partners
+    - Register, update, delete, and list students.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+- **Comments Management:**
 
-## Contributing
+    - Add, update, delete, and list comments on courses.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+    - Comments are linked to both students and courses.
 
-## Code of Conduct
+- **Registrations Management:**
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+    - Register students for courses.
 
-## Security Vulnerabilities
+    - Prevent duplicate registrations and registrations for ended courses.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+    - Filter registrations by course or student.
 
-## License
+- **Pagination:**
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+    - Courses, Comments and Registrations list endpoints support pagination.
+
+## Setup Instructions
+
+Follow these steps to set up the project locally:
+
+**1. Prerequisites**
+
+1. PHP 8.0 or higher
+2. [Composer](https://getcomposer.org/)
+3. MySQL, PostgreSQL, or SQLite ([XAMPP](https://www.apachefriends.org/))
+4. an IDE ([Visual Stuido Code](https://code.visualstudio.com/))
+
+**2. Clone the Repository**
+```
+git clone https://github.com/TeaOD/lms-api.git
+```
+
+**3. Install Laravel**
+
+Install Laravel using Composer:
+
+```
+composer global require laravel/installer
+```
+
+**4. Set Up the Environment**
+
+Update the .env file with your database credentials:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=lms
+DB_USERNAME=root
+DB_PASSWORD=yourpassword
+```
+
+**5. Run Migrations**
+
+Run the database migrations to create the required tables:
+```
+php artisan migrate
+```
+
+**6. Seed the Database (Optional)**
+
+Seed the database with sample data (if seeders are available):
+
+```
+php artisan db:seed
+```
+
+**7. Start the Development Server**
+
+Start the Laravel development server:
+```
+php artisan serve
+```
+The API will be available at `http://localhost:8000`.
+
+## API Endpoints
+
+**Courses**
+
+- List Courses: `GET /api/v1/courses`
+
+- Create Course: `POST /api/v1/courses`
+
+- Show Course: `GET /api/v1/courses/{id}`
+
+- Update Course: `PUT /api/v1/courses/{id}`
+
+- Delete Course: `DELETE /api/v1/courses/{id}`
+
+**Students**
+
+- List Students: `GET /api/v1/students`
+
+- Register Student: `POST /api/v1/students`
+
+- Show Student: `GET /api/v1/students/{id}`
+
+- Update Student: `PUT /api/v1/students/{id}`
+
+- Delete Student: `DELETE /api/v1/students/{id}`
+
+**Comments**
+
+- List Comments: `GET /api/v1/comments`
+
+- Create Comment: `POST /api/v1/comments`
+
+- Show Comment: `GET /api/v1/comments/{id}`
+
+- Update Comment: `PUT /api/v1/comments/{id}`
+
+- Delete Comment: `DELETE /api/v1/comments/{id}`
+
+**Registrations**
+
+- List Registrations: `GET /api/v1/registrations`
+
+- Create Registration: `POST /api/v1/registrations`
+
+- Show Registration: `GET /api/v1/registrations/{id}`
+
+- Update Registration: `PUT /api/v1/registrations/{id}`
+
+- Delete Registration: `DELETE /api/v1/registrations/{id}`
+
+
+## Assumptions
+
+**Soft Deletes:** Courses are soft-deleted, meaning they are not removed from the database but marked as deleted.
+
+**Validation:** All input data is validated based on the requirements (e.g., title is required and has a maximum length of 250 characters).
+
+**Pagination:** List endpoints are paginated with a default of 10 items per page.
+
+**Filters:**
+- Courses can be filtered by title, start_date, and instructor_name.
+
+- Registrations can be filtered by course_id and student_id.
+
+**Authentication:**
+
+Authentication is **NOT** implemented in this version. All endpoints are publicly accessible.
+
+## Testing the API
+
+You can test the API using tools like [Postman](https://www.postman.com/). Here’s an example request to create a course:
+
+**Create a Course**
+
+**URL:** `POST http://your-link/api/v1/courses`
+
+**Headers:**
+
+- Click **Body**, select **raw** then select **JSON** format
+
+**Body:**
+```
+{
+  "title": "Laravel Basics",
+  "price": 99.99,
+  "start_date": "2023-10-01",
+  "end_date": "2023-10-31",
+  "details": "Learn the basics of Laravel.",
+  "instructor_name": "John Doe"
+}
+```
+
+## Acknowledgments
+
+- [Laravel 11 Documentation](https://laravel.com/docs/11.x)
+
+- [Postman](https://www.postman.com/) for API testing.
+
+- [Dani Krossing](https://www.youtube.com/watch?v=iBaM5LYgyPk) for his helpful tutorial.
+
+- [Funda Of Web IT](https://youtu.be/1WknI88trqw?feature=shared) for his helpful tutorial.
+
+- [Jeremy McPeak](https://youtu.be/SIoeU1x7xok?feature=shared) for his helpful tutorial.
