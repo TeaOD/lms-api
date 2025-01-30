@@ -92,6 +92,6 @@ class CourseController extends Controller
     {
         $course = Course::find($id);
         $course->delete();
-        return response()->json(null, 204); // 204 means no content
+        return response()->json(['message' => 'Deleted successfully'], 200); // 200 means OK, parsed with message
     }
 }

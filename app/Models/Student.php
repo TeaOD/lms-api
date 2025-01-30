@@ -6,13 +6,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Student extends Model
 {
-    // A student has many comments
+    protected $table = 'students'; // Table name
+
+    protected $fillable = [
+        'name',
+        'price',
+        'start_date',
+        'end_date',
+        'details',
+        'instructor_name'
+    ];
+
     public function comments()
     {
         return $this->hasMany(Comment::class); // a student has many comments
     }
 
-    // A student has many registrations
     public function registrations()
     {
         return $this->hasMany(Registration::class); // a student has many registrations

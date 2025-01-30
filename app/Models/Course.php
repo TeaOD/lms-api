@@ -11,13 +11,22 @@ class Course extends Model
     use SoftDeletes; // Enable soft delete
     use HasFactory; // Enable model factory for fake data generation
 
-    // A course has many comments
+    protected $table = 'courses'; // Table name
+    
+    protected $fillable = [
+        'title',
+        'price',
+        'start_date',
+        'end_date',
+        'details',
+        'instructor_name'
+    ];
+
     public function comments()
     {
         return $this->hasMany(Comment::class);  // a course has many comments
     }
     
-    // A course has many registrations
     public function registrations()
     {
         return $this->hasMany(Registration::class); // a course has many registrations

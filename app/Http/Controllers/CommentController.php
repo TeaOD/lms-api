@@ -12,8 +12,10 @@ class CommentController extends Controller
      */
     public function index()
     {
-        $comments = Comment::with(['course', 'student'])->get();
-        return response()->json($comments);
+        $query = Comment::with(['course', 'student']);
+
+        /*$comments = Comment::with(['course', 'student'])->get();
+        return response()->json($comments);*/
 
         //  Pagination with 10 items per page
         $comments = $query->paginate(10);
